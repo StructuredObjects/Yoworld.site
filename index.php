@@ -9,7 +9,7 @@ class Search_Results
 	public 		$closest_match_found; // ARR
 
 	public 		$extra_match = false;
-	public 		$extra_match_found; // ARR
+	public 		$extra_match_found = array(); // ARR
 }
 
 class Item 
@@ -34,7 +34,7 @@ class YoworldItems
 {
 	private 		$data;
 	private 		$lines;
-	private 		$items;
+	private 		$items = array();
 	private 		$search;
 
 	function __construct(string $q)
@@ -42,7 +42,10 @@ class YoworldItems
 		$this->search = $q;
 		$this->data = file_get_contents("items.txt");
 		$this->lines = explode("\n", $this->data);
+		$this->fetch_all_items();
 	}
+
+	public function items(): array { return $this->items; }
 
 	public function parse(string $line): array
 	{
@@ -74,7 +77,7 @@ class YoworldItems
 			{
 				$s->found = true;
 				$s->found_match = $item;
-			} else if($no_case_sen == strtolower($item->name))
+			} else if(str_contains($item->name, $no_case_sen))
 			{
 				$s->closest_match = true;
 				$s->closest_match_found = $item;
@@ -84,12 +87,12 @@ class YoworldItems
 			$match = 0;
 			foreach($words as $word)
 			{
-				if(str_contains($word, strtolower($item->name)))
+				if(str_contains(strtolower($item->name), $word))
 					$match++;
 
 				if($match > 1) {
-					$extra_match = true;
-					array_push($extra_match_found, $item);
+					$s->extra_match = true;
+					array_push($s->extra_match_found, $item);
 				}
 			}
 		}
@@ -103,4 +106,17 @@ class YoworldItems
 		{ if($item->id == $this->search) return $item; }
 		return set_item(array("", "", "", ""));
 	}
+}
+
+$eng = new YoworldItems("26295");
+$result = $eng->search_by_id();
+echo $result->name. " | ". $result->price. "\r\n";
+
+
+$e = new YoworldItems("cupids bow");
+$results = $e->search_item_by_name();
+echo count($results->extra_match_found). "\r\n";
+foreach($results->extra_match_found as $i)
+{
+	echo $i->name. " | ". $i->price. "\r\n";
 }
