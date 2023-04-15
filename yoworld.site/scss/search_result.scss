@@ -1,0 +1,89 @@
+.ItemBox {
+    background-color: white;
+    border-radius: 40px;
+    text-align: left;
+    font-family: "Jost", serif;
+    box-shadow: 1px 1px 15px #888888;
+    padding-left: 7%;
+    padding-right: 7%;
+    padding-bottom: 4%;
+    margin: 1%;
+    height: 100%;
+    width: 100%;
+    p img {
+        height: 100px;
+        width: 100px;
+    }
+}
+
+div#ResultContainer {
+    width: 100%;
+}
+
+div#searchResults {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-gap: 40px;
+}
+
+.ItemTitle {
+    text-align: center;
+    font-family: 'Nunito', 'serif';
+    font-weight: 700;
+    color: black;
+}
+
+.ItemPrice {
+    text-align: center;
+    font-family: 'Nunito', 'serif';
+    font-weight: 700;
+    color: black;
+}
+
+.stickFooter {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
+
+@media (min-width: 390px) {
+    div#searchResults {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 40px;
+    }
+  }
+@media (min-width: 576px) {
+    div#searchResults {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 40px;
+    }
+  }
+  @media (min-width: 768px) {
+    div#searchResults {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 40px;
+    }
+  }
+  @media (min-width: 992px) { 
+    div#searchResults {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        grid-gap: 40px;
+    }
+  }
+  @media (min-width: 1200px) { 
+    div#searchResults {
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        grid-gap: 40px;
+    }
+  }

@@ -93,15 +93,25 @@ class YoworldItems
 			}
 
                         $words = explode(" ", $no_case_sen);
-                        $match = 0;
-                        foreach($words as $word)
-                        {
-                                if(str_contains(strtolower($item->name), $word))
-                                        $match++;
+                        if(count($words) < 2) {
+                                foreach($words as $word)
+                                {
+                                        if(str_contains(strtolower($item->name), $word)) {
+                                                $s->extra_match = true;
+                                                array_push($s->extra_match_found, $item);
+                                        }
+                                }
+                        } else {
+                                $match = 0;
+                                foreach($words as $word)
+                                {
+                                        if(str_contains(strtolower($item->name), $word))
+                                                $match++;
 
-                                if($match > 1) {
-                                        $s->extra_match = true;
-                                        array_push($s->extra_match_found, $item);
+                                        if($match > 1) {
+                                                $s->extra_match = true;
+                                                array_push($s->extra_match_found, $item);
+                                        }
                                 }
                         }
                 }
