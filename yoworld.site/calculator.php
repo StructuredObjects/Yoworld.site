@@ -249,89 +249,16 @@
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
-                    <h1 class="h3 mb-1 text-gray-800">Yoworld Item Search</h1>
-                    <p class="mb-4" style="font-family: Nunito">Do not Use ' or , when searching for items by name!</p>
+                    <h1 class="h3 mb-1 text-gray-800">Yocash Calculator</h1>
+                    <p class="mb-4">This page is still under development [4/15/23]. We will announce when its ready on the home page or discord server!</p>
+                    <p class="mb-4">The current YC rate is 60,000! Enter the amount of Yocash you wanted converted below</p>
 
                     <!-- Content Row -->
                     <div class="row" style="margin-bottom: 8%;">
                                 <form method="post" style="padding-left: 20px; padding-right: 20px">
-                                    <input class="form-control form-control-user" style="width: 300px" type="text" name="item_name" id="item_name" placeholder="Enter Item Name Or ID"/>
-                                    <input class="btn btn-primary btn-user btn-block" type="submit" name="search_item" id="search_item" value="Search"/><br >
-                    </br></form><br /><div id="ResultContainer">
-                                <?php
-ini_set('display_errors', 1);
-ini_set('display_startup_errors', 1);
-error_reporting(E_ALL);
-ini_set('memory_limit', '-1');
-include 'yoworldlib.php';
-$ip = $_SERVER['HTTP_CF_CONNECTING_IP'];
-if(array_key_exists("search_item", $_POST))
-{
-	$search = $_POST['item_name'];
-	$eng = new YoworldItems($search);
-	$result = (is_numeric($search) ? $eng->search_by_id() : $eng->search_item_by_name());
-
-	if(is_numeric($search))  {
-		echo "<b>Item Name: </b>". $result->name. "<br/><b>Price: </b>". $result->price. "<br/><img src=\"". $result->url. "\"/><br/>";
-	} else if($result->found) {
-		echo "<b>Exact Match Found....!</b><br />";
-		echo "<b>Item Name: </b>". $result->found_match->name. "<br/><b>ID: </b>". $result->found_match->id. "<br/><b>Price: </b>". $result->found_match->price. "<br/><img src=\"". $result->found_match->url. "\"/><br/><br />";
-	}
-
-	if($result->closest_match_alt)
-	{
-		echo "<br/></br/>Closest Match Found...!<br />";
-		echo "<b>Item Name: </b>". $result->closest_match_found_alt->name. "<br/><b>ID: </b>". $result->closest_match_found_alt->id. "<br/><b>Price: </b>". $result->closest_match_found_alt->price. "<br/><img src=\"". $result->closest_match_found_alt->url. "\"/><br/><br />";
-	}
-
-
-	echo "<br /> Results: ". count($result->extra_match_found). " matches found!<br />"; ?>
-    <div id="searchResults">
-    <?php
-	if(count($result->extra_match_found) > 0) {
-		$c = 0;
-		foreach($result->extra_match_found as $i)
-		{
-			if($c > 20) break;
-            ?>
-            <div class="col-s-auto col-m-auto ItemBox">
-                <?php
-                echo "<p style='font-family: Nunito; font-weight: 100; text-align: right; padding-top: 7%'; padding-right: 2%; font-size: 1rem;>#" . $i->id . "</p>";
-                echo "<p style='text-align: center;'><img src=\"". $i->url. "\"/></p><br />";
-                echo "<h4 class='ItemTitle'>" . $i->name . "</h4>";
-                echo "<p class='ItemPrice'>Price: ". $i->price. "</p>";
-                ?>
-            </div>
-            <?php
-			$c++;
-		}
-	}
-    $eng->log_search($ip, $_POST['item_name']);
-} else {
-    $items = new YoworldItems("");
-    ?>
-    <div id="searchResults">
-    <?php
-    $c = 0;
-	foreach($items->items() as $i)
-	{
-		if($c > 20) break;
-        ?>
-        <div class="col-s-auto col-m-auto ItemBox">
-            <?php
-            echo "<p style='font-family: Nunito; font-weight: 100; text-align: right; padding-top: 7%'; padding-right: 2%; font-size: 1rem;>#" . $i->id . "</p>";
-            echo "<p style='text-align: center;'><img src=\"". $i->url. "\"/></p><br />";
-            echo "<h4 class='ItemTitle'>" . $i->name . "</h4>";
-            echo "<p class='ItemPrice'>Price: ". $i->price. "</p>";
-            ?>
-        </div>
-        <?php
-		$c++;
-	}
-}
-?>
-</div>
-</div>
+                                    <input class="form-control form-control-user" style="width: 300px" type="text" name="hm_yc" id="hm_yc" placeholder="0"/>
+                                    <input class="btn btn-primary btn-user btn-block" type="submit" name="calculate_yc" id="calculate_yc" value="Calculate"/><br >
+                    </br></form><br />
                     </div>
 
                 </div>
